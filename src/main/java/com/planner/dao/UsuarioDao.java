@@ -1,12 +1,14 @@
 package com.planner.dao;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.planner.treina.entity.Usuario;
+import com.planner.util.Md5Util;
 
 public class UsuarioDao implements Serializable{
 
@@ -25,6 +27,14 @@ public class UsuarioDao implements Serializable{
 		em.getTransaction().commit();
 		
 		return usuarioModificado;
+	}
+	
+	public void salvarNovoUsuario(Usuario usuario) throws NoSuchAlgorithmException {
+		
+		em.getTransaction().begin();
+		usuario.setSenha(Md5Util.convertPasswordToMD5(usuario.getSenha()));
+	    em.merge(usuario);
+		em.getTransaction().commit();
 	}
 
 }

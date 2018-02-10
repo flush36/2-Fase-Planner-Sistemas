@@ -46,7 +46,7 @@ public class LoginBean implements Serializable {
 
 		this.usuario = usuarioService.logar(this.usuario);
 		if (this.usuario != null) {
-			context.getExternalContext().getSessionMap().put("logado", this.usuario);
+			context.getExternalContext().getSessionMap().put("usuarioLogado", this.usuario);
 			System.out.println("USUARIO NOME : " + this.usuario.getUsuario());
 			return "listarUsuarios?faces-redirect=true";
 		}

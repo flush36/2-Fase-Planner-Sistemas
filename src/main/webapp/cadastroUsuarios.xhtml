@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+		<p:outputPanel>Bem vindo #{loginBean.usuario.usuario}</p:outputPanel>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="style.css"/>
+		<p:messages globalOnly="true" />
+
+		<h:form id="frm" prependId="false">
+			<p:outputLabel value="#{indexBean.title}" />
+			
+			<p:commandButton value="Cadastrar" oncomplete="PF('cadastrarTarefa').show();" update="frmTarefa"
+			 style="position:relative; left: 135px;"/>
+			
+			<p:dialog widgetVar="cadastrarTarefa" header="Cadastrar tarefa" modal="true" draggable="false">
+				
+					<h:form id="frmTarefa" prependId="false">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Titulo" for="titulo"/>
+							<p:inputText value="#{tarefasBean.tarefas.titulo}" id="titulo"/>
+							
+							<p:outputLabel value="Descrição" for="descricao"/>
+							<p:inputText id="descricao" value="#{tarefasBean.tarefas.descricao}"/>
+							
+							<p:outputLabel value="Prioridade" for="prioridade"/>
+							 <p:selectOneMenu id="prioridade" value="#{tarefasBean.tarefas.prioridade}" style="width:125px">
+					            <f:selectItem itemLabel="Prioridade" itemValue="" />
+					            <f:selectItems value="#{tarefasBean.prioridade}"/>
+		        			</p:selectOneMenu>
+							
+							<p:commandButton value="salvar" action="#{tarefasBean.salvarTarefa}"/>
+							<h:outputText/>
+						</p:panelGrid>
+					</h:form>
+			</p:dialog>
+			
+			
+			<p:dataTable id="tabelaTarefas" var="tarefa" value="#{tarefasBean.tarefasList}"
+				emptyMessage="Nenhuma tarefa cadastrada" styleClass="tabela">
+
+				<p:column headerText="Titulo">
+					<h:outputText value="#{tarefa.titulo}"/>
+				</p:column>
+				
+				<p:column headerText="Data de criação">
+					<h:outputText value="#{tarefa.dataCriacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
+					</h:outputText>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+
+</ui:composition>
+
+</html>

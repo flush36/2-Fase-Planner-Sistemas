@@ -15,6 +15,28 @@
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="style.css"/>
 		<p:messages globalOnly="true" />
+		
+		
+		<p:commandButton value="Novo usuario" oncomplete="PF('cadastrarUsuario').show();" update="frmUsuario"/>
+			
+			<p:dialog widgetVar="cadastrarUsuario" header="Cadastrar usuario" modal="true" draggable="false">
+				
+					<h:form id="frmUsuario" prependId="false">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Login" for="login"/>
+							<p:inputText value="#{usuarioBean.usuario.login}" id="login"/>
+							
+							<p:outputLabel value="Senha" for="senha"/>
+							<p:inputText id="senha" value="#{usuarioBean.usuario.senha}"/>
+							
+							<p:outputLabel value="Nome" for="nome"/>
+							<p:inputText id="nome" value="#{usuarioBean.usuario.usuario}"/>
+							
+							<p:commandButton value="salvar" action="#{usuarioBean.salvarUsuario}"/>
+							<h:outputText/>
+						</p:panelGrid>
+					</h:form>
+			</p:dialog>
 
 		<h:form id="index" prependId="false">
 			<p:outputLabel value="#{indexBean.title}" />

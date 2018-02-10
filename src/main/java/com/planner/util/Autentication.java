@@ -27,7 +27,7 @@ public class Autentication implements PhaseListener {
 			return;
 		}
 
-		Usuario usuario = (Usuario) context.getExternalContext().getSessionMap().get("logado");
+		Usuario usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
 
 		if (usuario != null) {
 			return;

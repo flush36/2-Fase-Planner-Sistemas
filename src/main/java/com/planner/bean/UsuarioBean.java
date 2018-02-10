@@ -28,6 +28,9 @@ public class UsuarioBean implements Serializable {
 	private Usuario usuarioSelecionado;
 	
 	@Inject
+	private Usuario usuario;
+	
+	@Inject
 	private UsuarioService usuarioService;
 	
 	@Inject
@@ -55,6 +58,14 @@ public class UsuarioBean implements Serializable {
 			return;
 		}
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Senha invalida", "Senha invalida"));
+	}
+	
+	public void salvarUsuario() throws NoSuchAlgorithmException {
+		usuarioService.salvarNovoUsuario(this.usuario);
+		
+		RequestContext.getCurrentInstance().update("tabelaUser");
+		RequestContext.getCurrentInstance().execute("PF('cadastrarUsuario').hide()");
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO , "Usuario salvo com sucesso!", "Usuario salvo com sucesso!"));
 	}
 
 	public Usuario getUsuarioSelecionado() {
@@ -95,6 +106,14 @@ public class UsuarioBean implements Serializable {
 
 	public void setUsuarioService(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

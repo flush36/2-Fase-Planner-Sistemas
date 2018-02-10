@@ -1,6 +1,7 @@
 package com.planner.service;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,10 @@ public class UsuarioService implements Serializable {
 
 	public Usuario salvarUsuarioService(Usuario usuario) {
 		return usuarioDao.salvarUsuarioDao(usuario);
+	}
+	
+	public void salvarNovoUsuario(Usuario usuario) throws NoSuchAlgorithmException {
+		usuarioDao.salvarNovoUsuario(usuario);
 	}
 	
 }

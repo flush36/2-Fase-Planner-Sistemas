@@ -1,14 +1,20 @@
 package com.planner.treina.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="tarefa")
@@ -21,7 +27,9 @@ public class Tarefas implements Serializable{
 	private Integer id;
 	private String titulo;
 	private String descricao;
-
+	private Date dataCriacao;
+	private PrioridadeEnum prioridade;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
@@ -50,4 +58,43 @@ public class Tarefas implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	@Temporal(TemporalType.DATE)
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	@Enumerated(EnumType.STRING)
+	public PrioridadeEnum getPrioridade() {
+		return prioridade;
+	}
+	public void setPrioridade(PrioridadeEnum prioridade) {
+		this.prioridade = prioridade;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tarefas other = (Tarefas) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 }
