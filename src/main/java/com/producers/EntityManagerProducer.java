@@ -12,29 +12,27 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 public class EntityManagerProducer implements Serializable {
-
-    @Produces
-    @ApplicationScoped
-    public EntityManagerFactory entityManagerFactoryMySQL() {
-	return Persistence.createEntityManagerFactory("default");
-    }
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -7940309802233350557L;
-    @PersistenceContext(unitName = "default")
-    private EntityManager entityManager;
-
-    @Produces
-    @RequestScoped
-    protected EntityManager createEntityManager(EntityManagerFactory entityManagerFactory) {
-	return entityManagerFactory.createEntityManager();
-    }
-
-    protected void closeEntityManager(@Disposes EntityManager entityManager) {
-	if (entityManager.isOpen()) {
-	    entityManager.close();
+	
+	private static final long serialVersionUID = -7940309802233350557L;
+	
+	@PersistenceContext(unitName = "default")
+	private EntityManager entityManager;
+	
+	@Produces
+	@ApplicationScoped
+	public EntityManagerFactory entityManagerFactoryMySQL() {
+		return Persistence.createEntityManagerFactory("default");
 	}
-    }
+
+	@Produces
+	@RequestScoped
+	protected EntityManager createEntityManager(EntityManagerFactory entityManagerFactory) {
+		return entityManagerFactory.createEntityManager();
+	}
+
+	protected void closeEntityManager(@Disposes EntityManager entityManager) {
+		if (entityManager.isOpen()) {
+			entityManager.close();
+		}
+	}
 }

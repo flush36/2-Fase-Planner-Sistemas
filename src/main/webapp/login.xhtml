@@ -15,9 +15,23 @@
 		<ui:define name="conteudo">
 		
 			<p:messages globalOnly="true" />
-		
+			
 			<h:form id="login">
 				<p:outputLabel value="#{loginBean.title}" />
+				<p:panelGrid columns="2" layout="grid" style="width: 450px;">
+					<f:facet name="header">
+						<h:outputText value="Bem vindo!"/>
+					</f:facet>
+					<p:outputLabel for="usuario" value="Login"/>
+					<p:inputText id="usuario" value="#{loginBean.usuario.login}" required="true"
+						requiredMessage="Login obrigatorio."/>
+						
+					<p:outputLabel for="senha" value="Senha"/>
+					<p:password id="senha" value="#{loginBean.usuario.senha}" required="true"
+						requiredMessage="Senha obrigatoria."/>
+					
+					<p:commandButton value="Logar" action="#{loginBean.logar}"/>
+				</p:panelGrid>
 			</h:form>
 		</ui:define>
 

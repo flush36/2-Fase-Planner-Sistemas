@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+		<p:outputPanel>Bem vindo #{loginBean.usuario.usuario}</p:outputPanel>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="style.css"/>
+		<p:messages globalOnly="true" />
+
+		<h:form id="index" prependId="false">
+			<p:outputLabel value="#{indexBean.title}" />
+			
+			<p:dataTable id="tabelaUser" var="user" value="#{usuarioBean.usuarios}"
+				emptyMessage="Nenhum usuario cadastrado" styleClass="tabela">
+
+				<p:column headerText="Usuarios">
+					<h:outputText value="#{user.usuario}"/>
+				</p:column>
+				<p:column>
+					<p:commandButton value="change" oncomplete="PF('changePassword').show();" update="dialogo">
+						<f:setPropertyActionListener value="#{user}" target="#{usuarioBean.usuarioSelecionado}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<p:dialog widgetVar="changePassword" header="Mudar senha" modal="true" draggable="false">
+				<h:form id="dialogo" prependId="false">
+					<p:outputLabel value="Usuario"/>
+					<h:outputText value="#{usuarioBean.usuarioSelecionado.usuario}"/>
+					
+					<p:outputLabel value="Senha atual" for="atual"/>
+					<p:inputText id="atual" value="#{usuarioBean.senhaAtual}"/>
+					
+					<p:outputLabel value="Nova senha " for="nova"/>
+					<h:inputText id="nova" value="#{usuarioBean.novaSenha}"/>
+					
+					<p:commandButton value="salvar" action="#{usuarioBean.salvarEdicao}"/>
+				</h:form>
+			</p:dialog>
+	</ui:define>
+
+</ui:composition>
+
+</html>
