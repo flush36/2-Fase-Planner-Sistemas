@@ -48,7 +48,7 @@
 					<h:outputText value="#{user.usuario}"/>
 				</p:column>
 				<p:column>
-					<p:commandButton value="change" oncomplete="PF('changePassword').show();" update="dialogo">
+					<p:commandButton value="Mudar senha" oncomplete="PF('changePassword').show();" update="dialogo">
 						<f:setPropertyActionListener value="#{user}" target="#{usuarioBean.usuarioSelecionado}"/>
 					</p:commandButton>
 				</p:column>
@@ -56,18 +56,20 @@
 		</h:form>
 		
 		<p:dialog widgetVar="changePassword" header="Mudar senha" modal="true" draggable="false">
-				<h:form id="dialogo" prependId="false">
-					<p:outputLabel value="Usuario"/>
-					<h:outputText value="#{usuarioBean.usuarioSelecionado.usuario}"/>
-					
-					<p:outputLabel value="Senha atual" for="atual"/>
-					<p:inputText id="atual" value="#{usuarioBean.senhaAtual}"/>
-					
-					<p:outputLabel value="Nova senha " for="nova"/>
-					<h:inputText id="nova" value="#{usuarioBean.novaSenha}"/>
-					
-					<p:commandButton value="salvar" action="#{usuarioBean.salvarEdicao}"/>
-				</h:form>
+					<h:form id="dialogo" prependId="false">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Usuario: "/>
+							<h:outputText value="#{usuarioBean.usuarioSelecionado.usuario}"/>
+							
+							<p:outputLabel value="Senha atual" for="atual"/>
+							<p:inputText id="atual" value="#{usuarioBean.senhaAtual}"/>
+							
+							<p:outputLabel value="Nova senha " for="nova"/>
+							<h:inputText id="nova" value="#{usuarioBean.novaSenha}"/>
+							
+							<p:commandButton value="salvar" action="#{usuarioBean.salvarEdicao}"/>
+						</p:panelGrid>
+					</h:form>
 			</p:dialog>
 	</ui:define>
 

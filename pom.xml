@@ -130,6 +130,7 @@
 			<version>${deltaspike.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>jsf-cdi-jpa</finalName>
